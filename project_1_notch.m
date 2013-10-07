@@ -33,6 +33,7 @@ pvec = [p1;p2;p3;p4];
 
 %Plot our system in the z-plane
 zplane(zvec,pvec);
+title('Pole-Zero Map of Filter');
 
 %% generate Z-Transform
 a = poly(pvec);
@@ -50,7 +51,8 @@ figure();
 [H,w] = freqz(b,a,Fs);
 plot(w,abs(H));
 xlabel('Freqency (rads/sec)');
-ylabel('|H|');
+ylabel('|H(\omega)|');
+title('Frequency Response of Double Notch Filter');
 
 %% Get symbolic representation of H(z)
 %H = zpk(zvec,pvec,G,Fs);

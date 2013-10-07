@@ -12,11 +12,25 @@
 
 \section{Introduction}
 
-Signals can be represented in a myraid of ways. Continuous signals, such as audible sound waves, can be intrepreted by analog circuitry or biological processes. One can also be represented by the composition of the various frequencies in the signal by its Fourier Transform. However, continuous signals are impossible to be natively analyzed by computers, which are essentially a glorified collection of on/off switches. Such signals can be \textit{sampled} to produce a signal the computer can comprehend.
+Signals can be represented in a myriad of ways. Continuous signals, such as audible sound waves, can be interpreted by analog circuitry or biological processes. One can also be represented by the composition of the various frequencies in the signal by its Fourier Transform. However, continuous signals are impossible to be natively analyzed by computers, which are essentially a glorified collection of on/off switches. Such signals can be \textit{sampled} to produce a signal the computer can comprehend.
 
 This report contains details of processing a digital audio signal. The audio signal under analysis contains spoken words, as well as two undesired tones and two specific frequencies. A double notch filter is designed and implemented to remove the two undesired tones, while leaving the rest of the signal as intact as possible.
 
 \section{Filter Design}
+
+The two tones corrupting the input signal are located at $f_1 = 600Hz$ and $f_2 = 300Hz$. However, to be of any use, these frequencies must first be put into their discrete radian frequencies, using Equation 1.
+
+\begin{equation}
+\omega_n = 2\pi f_nT
+\end{equation}
+
+Putting $f_1$ and $f_2$ through Equation 1 yields two discrete frequencies that need to be eliminated. These frequencies are $\omega_1 = 0.5346$ $rads/sample$ and $\omega_2 = 0.9273$  $rads/sample$. Knowing these frequencies allows the design of the double-notch filter. Clearly, the filter should absolutely eliminate the frequencies at $\omega_1$ and $\omega_2$. This can be achieved by directly placing the zeros of the filter at $\omega_1$ and $\omega_2$, on the unit circle in the z-plane. However, these zeros will also have the effect of "pulling down" areas around the zeros. This effect can be minimized by placing poles at the same radian frequency, but slightly inside the unit circle in the z-plane. This leads to poles at $.99e^{\pm j\omega_1}$ and $.99e^{\pm \omega_2}$. The pole-zero map of the double-notch filter can be seen in Figure 1.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{polezero.png}
+\caption{Pole-Zero Map of Double-Notch Filter}
+\end{figure}
 
 \section{Experimental Results}
 
